@@ -1,80 +1,61 @@
-import { useEffect, useRef, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
-import { experience } from '../data/profile.js';
+import { Briefcase, MapPin } from 'lucide-react';
+import { experience } from '../data/content.js';
+import Reveal from './Reveal.jsx';
 import SectionHeading from './SectionHeading.jsx';
 
 export default function Experience() {
-  const [openIdx, setOpenIdx] = useState(0);
-  const listRef = useRef(null);
-  const [progress, setProgress] = useState(0);
-
-  // Fill the timeline rail as the section scrolls through the viewport.
-  useEffect(() => {
-    const onScroll = () => {
-      const el = listRef.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const p = (vh * 0.6 - r.top) / r.height;
-      setProgress(Math.max(0, Math.min(1, p)));
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
   return (
-    <section id="experience" className="section" aria-labelledby="experience-title">
-      <div className="container">
-        <SectionHeading index="04" kicker="Experience" id="experience-title" title={<>A steady <em>trajectory.</em></>}>
-          From building enterprise applications to leading a team — and now exploring how AI fits into real systems.
-        </SectionHeading>
+    <section id="experience" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
+      <SectionHeading
+        eyebrow="Experience"
+        title="A decade of shipping, then leading."
+        intro="From developer to team lead — building and evolving the systems a business depends on every day."
+      />
 
-        <ol className="timeline" ref={listRef} style={{ '--progress': progress }}>
-          <li className="timeline__item timeline__item--now" data-reveal>
-            <span className="timeline__dot" aria-hidden="true" />
-            <div className="timeline__now">
-              <span className="mono">Now</span>
-              <p>Exploring AI engineering, AI-powered applications and AI solution architecture.</p>
-            </div>
-          </li>
-          {experience.map((job, i) => {
-            const open = openIdx === i;
-            const id = `job-${i}`;
-            return (
-              <li key={i} className={`timeline__item ${open ? 'is-open' : ''}`} data-reveal>
-                <span className="timeline__dot" aria-hidden="true" />
-                <button
-                  type="button"
-                  className="timeline__head"
-                  aria-expanded={open}
-                  aria-controls={id}
-                  onClick={() => setOpenIdx(open ? -1 : i)}
-                >
-                  <span className="timeline__period mono">{job.period}</span>
-                  <span className="timeline__role">{job.role}</span>
-                  <span className="timeline__company">{job.company}</span>
-                  <ChevronDown size={18} className="timeline__chev" aria-hidden="true" />
-                </button>
-                <div id={id} className="timeline__body" inert={open ? undefined : ''}>
-                  <div className="timeline__body-inner">
-                    <ul className="tags">
-                      {job.focus.map((f) => (
-                        <li key={f} className="tag">{f}</li>
-                      ))}
-                    </ul>
-                    <ul className="timeline__points">
-                      {job.points.map((pt) => (
-                        <li key={pt}>{pt}</li>
-                      ))}
-                    </ul>
-                  </div>
+      <ol className="space-y-6">
+        {experience.map((job, i) => (
+          <Reveal as="li" key={job.company} delay={i * 0.05} className="glass glass-hover rounded-[2rem] p-6 sm:p-10">
+            <div className="flex flex-col gap-4 border-b border-[var(--glass-border)] pb-6 sm:flex-row sm:items-start sm:justify-between">
+              <div className="flex items-start gap-4">
+                <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-indigo-500/25 to-fuchsia-500/25 text-accent ring-1 ring-[var(--glass-border)]">
+                  <Briefcase size={22} />
+                </span>
+                <div>
+                  <h3 className="font-display text-xl font-semibold sm:text-2xl">{job.company}</h3>
+                  <p className="mt-1 flex items-center gap-1.5 text-sm text-muted">
+                    <MapPin size={14} />
+                    {job.location}
+                  </p>
                 </div>
-              </li>
-            );
-          })}
-        </ol>
-      </div>
+              </div>
+              <p className="inline-flex items-center gap-2 self-start rounded-full border border-[var(--glass-border)] bg-[var(--glass)] px-3.5 py-1.5 font-mono text-xs text-muted">
+                {job.current && <span className="size-1.5 rounded-full bg-emerald-400" />}
+                {job.period}
+              </p>
+            </div>
+
+            <ol className="relative mt-6 space-y-8 pl-7 before:absolute before:top-2 before:bottom-2 before:left-[5px] before:w-px before:bg-gradient-to-b before:from-accent before:via-[var(--accent-3)] before:to-transparent">
+              {job.roles.map((role) => (
+                <li key={role.title} className="relative">
+                  <span className="absolute top-1.5 -left-7 size-[11px] rounded-full border-2 border-accent bg-bg" />
+                  <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                    <h4 className="font-display text-lg font-medium">{role.title}</h4>
+                    <p className="shrink-0 font-mono text-xs text-subtle">{role.period}</p>
+                  </div>
+                  <ul className="mt-3 space-y-2.5">
+                    {role.points.map((point) => (
+                      <li key={point} className="flex gap-3 leading-relaxed text-muted">
+                        <span className="mt-2.5 size-1 shrink-0 rounded-full bg-accent-2" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
+        ))}
+      </ol>
     </section>
   );
 }

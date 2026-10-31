@@ -1,42 +1,33 @@
 # Sijin Prakasan — Portfolio
 
-React + Vite (JavaScript). The only runtime dependency besides React is `lucide-react` (icons).
+Glassmorphism portfolio built with React 18, Vite, Tailwind CSS v4 and Motion. Deploys to GitHub Pages on every
+push to `main` (see `.github/workflows/deploy.yml`).
 
 ```bash
 npm install      # first time only
-npm run dev      # start the dev server → http://localhost:5173
+npm run dev      # dev server → http://localhost:5173
 npm run build    # production build → dist/
 npm run preview  # serve the production build locally
 ```
 
 ## Updating content
 
-Almost everything lives in **`src/data/profile.js`**:
+All text lives in **`src/data/content.js`**:
 
-| What | Where |
+| What | Export |
 | --- | --- |
-| Name, title, headline, intro, status pill | `profile` |
-| Email, LinkedIn, GitHub | `contact` (empty values show as “Coming soon”) |
-| About text and principles | `about` |
-| Skill groups | `skillGroups` (`level: 'exploring'` = learning area) |
-| Projects, diagrams, details, screenshots | `projects` (add `image: '/projects/x.png'` to show a screenshot) |
-| Experience timeline | `experience` (replace every `TODO`) |
+| Name, title, summary, status pill, CV link | `profile` |
+| Email, LinkedIn, optional phone / GitHub | `contact` (empty values are hidden) |
+| Hero stat cards | `stats` |
+| About text and quick facts | `about` |
+| Work history (one company can hold several roles) | `experience` |
+| "Things I've built" bento cards | `highlights` (`size: 'lg'` spans two columns) |
+| Skill groups | `skillGroups` |
+| Education and awards | `education`, `awards` |
 
-- **CV:** replace `public/cv/Sijin-Prakasan-CV.pdf` with the real file (same name).
-- **Screenshots:** put images in `public/projects/` and reference them as `/projects/name.png`.
+Years of experience are calculated from the career start date, so they stay current.
+
+- **CV:** `public/cv/Sijin-Prakasan-CV.pdf` — replace it with a newer PDF of the same name.
+- **Hero code window:** the C# snippet is the `code` array in `src/components/Hero.jsx`.
+- **Colours, glass and themes:** tokens at the top of `src/styles.css` (dark and light).
 - **SEO / page title:** `index.html`.
-- **Colors and fonts:** the design tokens at the top of `src/styles/global.css`.
-
-## AI assistant
-
-`src/lib/assistant.js` runs a local, predefined-answer assistant. To connect a real model later, build a
-server-side endpoint (e.g. a serverless `/api/chat`) that keeps the API key in a server environment variable,
-then set `VITE_ASSISTANT_ENDPOINT=/api/chat` in `.env`. Never put API keys in frontend code.
-
-The playground engines (summarizer and simulated semantic search) live in `src/lib/demos.js`.
-
-## Contact form
-
-No backend is connected. With `contact.email` set, the form opens the visitor’s email app with the message
-pre-filled. Without it, the form copies the message and points to LinkedIn. To make it actually send, connect a
-form service or serverless function in `src/components/Contact.jsx`.

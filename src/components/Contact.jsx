@@ -1,159 +1,98 @@
 import { useState } from 'react';
-import { Mail, Linkedin, Github, ArrowUpRight, Send, Info } from 'lucide-react';
-import { contact, profile } from '../data/profile.js';
-import SectionHeading from './SectionHeading.jsx';
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-function validate(v) {
-  const e = {};
-  if (v.name.trim().length < 2) e.name = 'Please enter your name.';
-  if (!EMAIL_RE.test(v.email.trim())) e.email = 'Please enter a valid email address.';
-  if (v.message.trim().length < 10) e.message = 'Please write a message of at least 10 characters.';
-  return e;
-}
-
-function ContactLink({ href, Icon, label, value }) {
-  if (!href) {
-    return (
-      <li className="contact-link is-pending">
-        <Icon size={18} aria-hidden="true" />
-        <span className="contact-link__label">{label}</span>
-        <span className="contact-link__value">Coming soon</span>
-      </li>
-    );
-  }
-  const external = href.startsWith('http');
-  return (
-    <li>
-      <a className="contact-link" href={href} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
-        <Icon size={18} aria-hidden="true" />
-        <span className="contact-link__label">{label}</span>
-        <span className="contact-link__value">{value}</span>
-        <ArrowUpRight size={16} aria-hidden="true" className="contact-link__arrow" />
-        {external && <span className="visually-hidden">(opens in a new tab)</span>}
-      </a>
-    </li>
-  );
-}
+import { ArrowUpRight, Check, Copy, Download, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { contact, profile } from '../data/content.js';
+import Reveal from './Reveal.jsx';
 
 export default function Contact() {
-  const [values, setValues] = useState({ name: '', email: '', message: '' });
-  const [errors, setErrors] = useState({});
-  const [touched, setTouched] = useState({});
-  const [status, setStatus] = useState(null);
+  const [copied, setCopied] = useState(false);
 
-  const update = (field) => (e) => {
-    const next = { ...values, [field]: e.target.value };
-    setValues(next);
-    if (touched[field]) setErrors(validate(next));
-  };
-  const blur = (field) => () => {
-    setTouched((t) => ({ ...t, [field]: true }));
-    setErrors(validate(values));
-  };
-
-  const submit = async (e) => {
-    e.preventDefault();
-    const errs = validate(values);
-    setErrors(errs);
-    setTouched({ name: true, email: true, message: true });
-    if (Object.keys(errs).length) {
-      document.getElementById(`cf-${Object.keys(errs)[0]}`)?.focus();
-      return;
-    }
-
-    // No backend is connected: hand the message to the visitor's email app, or copy it for LinkedIn.
-    const body = `${values.message}\n\n— ${values.name} (${values.email})`;
-    if (contact.email) {
-      const subject = encodeURIComponent(`Portfolio enquiry from ${values.name}`);
-      window.location.href = `mailto:${contact.email}?subject=${subject}&body=${encodeURIComponent(body)}`;
-      setStatus({ type: 'mail', text: 'Your email app should open with the message ready to send.' });
-    } else {
-      let copied = false;
-      try {
-        await navigator.clipboard.writeText(body);
-        copied = true;
-      } catch {
-        /* clipboard unavailable */
-      }
-      setStatus({
-        type: 'linkedin',
-        text: `This form isn't connected to a mail service yet, so nothing was sent. ${
-          copied ? 'Your message has been copied to the clipboard — ' : ''
-        }please send it via LinkedIn.`,
-      });
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(contact.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      window.location.href = `mailto:${contact.email}`;
     }
   };
 
-  const field = (name) => ({
-    id: `cf-${name}`,
-    name,
-    value: values[name],
-    onChange: update(name),
-    onBlur: blur(name),
-    'aria-invalid': Boolean(touched[name] && errors[name]),
-    'aria-describedby': touched[name] && errors[name] ? `cf-${name}-err` : undefined,
-  });
-  const err = (name) =>
-    touched[name] && errors[name] ? (
-      <span id={`cf-${name}-err`} className="field__error">{errors[name]}</span>
-    ) : null;
+  const links = [
+    { icon: Linkedin, label: 'LinkedIn', value: 'in/sijin-prakasan', href: contact.linkedin, external: true },
+    contact.phone && { icon: Phone, label: 'Phone', value: contact.phone, href: `tel:${contact.phone.replace(/\s/g, '')}` },
+    { icon: Download, label: 'Résumé', value: 'Download PDF', href: profile.cvUrl, download: true },
+    { icon: MapPin, label: 'Location', value: profile.location },
+  ].filter(Boolean);
 
   return (
-    <section id="contact" className="section section--contact" aria-labelledby="contact-title">
-      <div className="container">
-        <SectionHeading index="06" kicker="Contact" id="contact-title" title={<>Let’s build something <em>useful.</em></>}>
-          Whether it’s an enterprise system that needs a steady hand, an API that needs to connect things cleanly, or an
-          idea about where AI fits in — I’d be glad to hear about it.
-        </SectionHeading>
+    <section id="contact" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
+      <Reveal className="glass relative overflow-hidden rounded-[2.5rem] p-7 sm:p-12 md:p-16">
+        <div aria-hidden="true" className="absolute -top-32 -right-24 size-80 rounded-full bg-fuchsia-500/30 blur-3xl" />
+        <div aria-hidden="true" className="absolute -bottom-32 -left-24 size-80 rounded-full bg-indigo-500/30 blur-3xl" />
 
-        <div className="contact">
-          <div data-reveal>
-            <ul className="contact-links">
-              <ContactLink href={contact.email && `mailto:${contact.email}`} Icon={Mail} label="Email" value={contact.email} />
-              <ContactLink href={contact.linkedin} Icon={Linkedin} label="LinkedIn" value="in/sijin-prakasan" />
-              <ContactLink href={contact.github} Icon={Github} label="GitHub" value={contact.github.replace(/^https?:\/\/(www\.)?/, '')} />
-            </ul>
-            <p className="contact__closing">
-              Thanks for stopping by — I’d genuinely like to hear what you’re working on.
-              <span className="contact__sign">— {profile.firstName}</span>
+        <div className="relative grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+          <div>
+            <p className="mb-3 font-mono text-xs tracking-[0.2em] text-accent uppercase">Contact</p>
+            <h2 className="font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl">
+              Let’s build something <span className="text-gradient">that lasts.</span>
+            </h2>
+            <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">
+              Hiring, collaborating, or just want to talk .NET? My inbox is open.
             </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a
+                href={`mailto:${contact.email}`}
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-6 py-3 font-medium text-white shadow-[0_10px_30px_-10px_rgb(129_140_248/0.8)] transition-transform hover:scale-[1.03]"
+              >
+                <Mail size={18} />
+                Email me
+              </a>
+              <button
+                type="button"
+                onClick={copyEmail}
+                className="glass inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-transform hover:scale-[1.03]"
+              >
+                {copied ? <Check size={16} className="text-emerald-400" /> : <Copy size={16} />}
+                <span aria-live="polite">{copied ? 'Copied!' : contact.email}</span>
+              </button>
+            </div>
           </div>
 
-          <form className="form" onSubmit={submit} noValidate data-reveal>
-            <div className="field">
-              <label htmlFor="cf-name">Name</label>
-              <input type="text" autoComplete="name" {...field('name')} />
-              {err('name')}
-            </div>
-            <div className="field">
-              <label htmlFor="cf-email">Email</label>
-              <input type="email" autoComplete="email" {...field('email')} />
-              {err('email')}
-            </div>
-            <div className="field">
-              <label htmlFor="cf-message">Message</label>
-              <textarea rows={5} {...field('message')} />
-              {err('message')}
-            </div>
-            <button type="submit" className="btn btn--primary">
-              <Send size={15} aria-hidden="true" /> {contact.email ? 'Compose email' : 'Prepare message'}
-            </button>
-            <p className="form__note">
-              <Info size={13} aria-hidden="true" /> No server is connected — this form doesn’t send messages by itself.
-            </p>
-            {status && (
-              <p className="form__status" role="status">
-                {status.text}{' '}
-                {status.type === 'linkedin' && (
-                  <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">Open LinkedIn</a>
-                )}
-              </p>
-            )}
-          </form>
+          <ul className="grid gap-3">
+            {links.map(({ icon: Icon, label, value, href, external, download }) => {
+              const body = (
+                <>
+                  <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-[var(--glass-strong)] text-accent ring-1 ring-[var(--glass-border)]">
+                    <Icon size={20} />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-mono text-xs tracking-[0.12em] text-subtle uppercase">{label}</span>
+                    <span className="block truncate font-medium">{value}</span>
+                  </span>
+                  {href && <ArrowUpRight size={18} className="text-subtle transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-fg" />}
+                </>
+              );
+              const cls = 'glass glass-hover group flex items-center gap-4 rounded-2xl p-4';
+              return (
+                <li key={label}>
+                  {href ? (
+                    <a
+                      href={href}
+                      className={cls}
+                      {...(external && { target: '_blank', rel: 'noreferrer' })}
+                      {...(download && { download: 'Sijin-Prakasan-CV.pdf' })}
+                    >
+                      {body}
+                    </a>
+                  ) : (
+                    <div className={cls}>{body}</div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -1,22 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import { profile } from '../data/profile.js';
+import { AnimatePresence, motion } from 'motion/react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
+import { navLinks, profile } from '../data/content.js';
 import { useActiveSection } from '../hooks/useActiveSection.js';
 
-export const navItems = [
-  { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'work', label: 'Work' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'playground', label: 'AI Lab' },
-  { id: 'contact', label: 'Contact' },
-];
-const ids = ['top', ...navItems.map((n) => n.id)];
+// 'top' (the hero) is observed too, so scrolling back up clears the highlight.
+const sectionIds = ['top', ...navLinks.map((l) => l.id)];
 
-export default function Nav() {
-  const [menuOpen, setMenuOpen] = useState(false);
+export default function Nav({ theme, onToggleTheme }) {
+  const active = useActiveSection(sectionIds);
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const active = useActiveSection(ids);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -26,55 +20,108 @@ export default function Nav() {
   }, []);
 
   useEffect(() => {
-    if (!menuOpen) return;
-    const onKey = (e) => e.key === 'Escape' && setMenuOpen(false);
+    if (!open) return;
+    const onKey = (e) => e.key === 'Escape' && setOpen(false);
     window.addEventListener('keydown', onKey);
-    document.body.classList.add('no-scroll');
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      document.body.classList.remove('no-scroll');
-    };
-  }, [menuOpen]);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+
+  const ThemeIcon = theme === 'dark' ? Sun : Moon;
 
   return (
-    <header className={`nav ${scrolled ? 'is-scrolled' : ''} ${menuOpen ? 'is-open' : ''}`}>
-      <div className="nav__inner container">
-        <a href="#top" className="nav__brand" aria-label={`${profile.name} — back to top`}>
-          <span className="nav__mark" aria-hidden="true">{profile.initials}</span>
-          <span className="nav__name">{profile.name}</span>
+    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
+      <nav
+        aria-label="Main"
+        className={`glass mx-auto flex max-w-5xl items-center justify-between rounded-full py-2 pr-2 pl-3 transition-shadow duration-500 ${
+          scrolled ? 'shadow-2xl' : ''
+        }`}
+      >
+        <a href="#top" className="flex items-center gap-2.5 rounded-full pr-2" aria-label={`${profile.name} — back to top`}>
+          <span className="grid size-9 place-items-center rounded-full bg-gradient-to-br from-indigo-500 via-fuchsia-500 to-cyan-400 font-display text-sm font-bold text-white">
+            {profile.initials}
+          </span>
+          <span className="hidden font-display text-sm font-semibold sm:block">{profile.name}</span>
         </a>
 
-        <nav aria-label="Primary" id="primary-nav" className="nav__links">
-          <ul>
-            {navItems.map((item, i) => (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  className={active === item.id ? 'is-active' : ''}
-                  aria-current={active === item.id ? 'true' : undefined}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  <span className="nav__idx" aria-hidden="true">0{i + 1}</span>
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <ul className="hidden items-center gap-1 md:flex">
+          {navLinks.map((link) => (
+            <li key={link.id}>
+              <a
+                href={`#${link.id}`}
+                aria-current={active === link.id ? 'true' : undefined}
+                className={`relative block rounded-full px-4 py-2 text-sm transition-colors hover:text-fg ${
+                  active === link.id ? 'text-fg' : 'text-muted'
+                }`}
+              >
+                {active === link.id && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    className="absolute inset-0 -z-10 rounded-full border border-glass-border bg-[var(--glass-strong)]"
+                    transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                  />
+                )}
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
 
-        <a href="#contact" className="btn btn--small nav__cta">Let's Connect</a>
+        <div className="flex items-center gap-1.5">
+          <button
+            type="button"
+            onClick={onToggleTheme}
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            className="grid size-10 place-items-center rounded-full text-muted transition-colors hover:bg-[var(--glass-strong)] hover:text-fg"
+          >
+            <ThemeIcon size={18} />
+          </button>
+          <a
+            href="#contact"
+            className="hidden rounded-full bg-fg px-4 py-2 text-sm font-medium text-bg transition-transform hover:scale-[1.03] sm:block"
+          >
+            Let’s talk
+          </a>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            className="grid size-10 place-items-center rounded-full text-fg md:hidden"
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </nav>
 
-        <button
-          type="button"
-          className="nav__toggle icon-btn"
-          aria-expanded={menuOpen}
-          aria-controls="primary-nav"
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          onClick={() => setMenuOpen((o) => !o)}
-        >
-          {menuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </div>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            id="mobile-menu"
+            initial={{ opacity: 0, y: -8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            className="glass mx-auto mt-2 max-w-5xl rounded-3xl p-2 md:hidden"
+          >
+            <ul>
+              {navLinks.map((link) => (
+                <li key={link.id}>
+                  <a
+                    href={`#${link.id}`}
+                    onClick={() => setOpen(false)}
+                    className={`block rounded-2xl px-4 py-3 font-display text-lg ${
+                      active === link.id ? 'bg-[var(--glass-strong)] text-fg' : 'text-muted'
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

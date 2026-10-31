@@ -6,3 +6,6 @@ dist
 
 # Original headshots (only the generated hero image is published)
 public/images/sijin-headshot-*.jpg
+
+# Playwright MCP screenshots / logs
+.playwright-mcp

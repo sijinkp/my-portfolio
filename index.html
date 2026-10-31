@@ -1,32 +1,43 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sijin Prakasan — Senior Software Engineer | .NET & API Specialist</title>
+    <title>Sijin Prakasan — Senior Software Engineer | .NET, C# & SQL</title>
     <meta
       name="description"
-      content="Sijin Prakasan is a Senior Software Engineer with 11+ years building enterprise applications, scalable APIs and data-driven solutions with C#, .NET, SQL Server and React — now exploring AI engineering."
+      content="Sijin Prakasan is a Senior Software Engineer and Team Lead in Ras Al Khaimah, UAE, with 12+ years building enterprise software with .NET, C#, SQL Server, REST APIs and React."
     />
     <meta name="author" content="Sijin Prakasan" />
-    <meta name="theme-color" content="#08090b" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#070a17" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Sijin Prakasan — Senior Software Engineer" />
     <meta
       property="og:description"
-      content="Building intelligent software. Solving real problems. Enterprise .NET, APIs, SQL Server — and a growing focus on AI-powered applications."
+      content="Enterprise .NET, C# and SQL Server engineer and team lead. CRM platforms, REST APIs and system integrations."
     />
     <meta name="twitter:card" content="summary" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Apply the saved / system theme before first paint to avoid a flash. -->
+    <script>
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem('theme'); } catch (e) {}
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
 
     <script type="application/ld+json">
       {
@@ -34,8 +45,9 @@
         "@type": "Person",
         "name": "Sijin Prakasan",
         "jobTitle": "Senior Software Engineer",
+        "address": { "@type": "PostalAddress", "addressLocality": "Ras Al Khaimah", "addressCountry": "AE" },
         "sameAs": ["https://www.linkedin.com/in/sijin-prakasan/"],
-        "knowsAbout": ["C#", ".NET", "SQL Server", "REST APIs", "React", "JavaScript"]
+        "knowsAbout": ["C#", ".NET", "SQL Server", "REST APIs", "React", "WinForms", "DevExpress"]
       }
     </script>
   </head>
