@@ -102,9 +102,11 @@ const code = [
   [[k, '  public string '], [m, 'Role'], [p, ' => '], [s, '"Team Lead"'], [p, ';']],
   [[k, '  public string'], [p, '[] '], [m, 'Stack'], [p, ' =>']],
   [[p, '    ['], [s, '".NET"'], [p, ', '], [s, '"C#"'], [p, ', '], [s, '"SQL"'], [p, ', '], [s, '"React"'], [p, '];']],
+  [[k, '  public string'], [p, '[] '], [m, 'AiTools'], [p, ' =>']],
+  [[p, '    ['], [s, '"Claude Code"'], [p, ', '], [s, '"ChatGPT"'], [p, '];']],
   [],
   [[k, '  public '], [t, 'Solution'], [m, ' Deliver'], [p, '('], [t, 'Requirement'], [p, ' req)']],
-  [[p, '    => '], [m, 'Understand'], [p, '(req).'], [m, 'Build'], [p, '().'], [m, 'Optimise'], [p, '();']],
+  [[p, '    => '], [m, 'Design'], [p, '(req).'], [m, 'Plan'], [p, '().'], [m, 'Build'], [p, '().'], [m, 'Ship'], [p, '();']],
   [[p, '}']],
 ];
 
@@ -187,7 +189,7 @@ function HeroVisual() {
 
         <FloatingChip className="right-2 -bottom-6 sm:-right-8" delay={0.85} depth={50}>
           <span className="size-2 rounded-full bg-fuchsia-400" />
-          <span className="text-sm font-medium">{profile.title.replace('Senior ', 'Sr. ')} · Team Lead</span>
+          <span className="text-sm font-medium">Team Lead · AI-first engineer</span>
         </FloatingChip>
       </motion.div>
     </motion.div>

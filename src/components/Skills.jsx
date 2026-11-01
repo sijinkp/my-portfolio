@@ -1,20 +1,20 @@
-import { Code2, Database, Layers, Wrench } from 'lucide-react';
+import { Code2, Database, Layers, Sparkles, Wrench } from 'lucide-react';
 import { skillGroups } from '../data/content.js';
 import Reveal from './Reveal.jsx';
 import SectionHeading from './SectionHeading.jsx';
 
-const icons = { code: Code2, layers: Layers, database: Database, wrench: Wrench };
+const icons = { sparkles: Sparkles, code: Code2, layers: Layers, database: Database, wrench: Wrench };
 
 export default function Skills() {
   return (
     <section id="skills" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
-      <SectionHeading eyebrow="Skills" title="The toolkit." intro="Deep in the Microsoft stack, comfortable across the rest." />
+      <SectionHeading eyebrow="Skills" title="The toolkit." intro="Deep in the Microsoft stack, comfortable across the rest — and AI-assisted throughout." />
 
       <div className="grid gap-5 sm:grid-cols-2">
         {skillGroups.map((group, i) => {
           const Icon = icons[group.icon];
           return (
-            <Reveal key={group.label} delay={(i % 2) * 0.08} className="glass glass-hover rounded-[2rem] p-7">
+            <Reveal key={group.label} delay={(i % 2) * 0.08} className={`glass glass-hover rounded-[2rem] p-7 ${group.wide ? 'sm:col-span-2' : ''}`}>
               <h3 className="flex items-center gap-3 font-display text-lg font-semibold">
                 <Icon size={20} className="text-accent" />
                 {group.label}

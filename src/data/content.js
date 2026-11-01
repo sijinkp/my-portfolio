@@ -20,10 +20,10 @@ export const profile = {
   lastName: 'Prakasan',
   initials: 'SP',
   title: 'Senior Software Engineer',
-  subtitle: 'Team Lead · .NET, C# & SQL',
+  subtitle: 'Team Lead · .NET, C# & SQL · AI-first',
   location: 'Ras Al Khaimah, UAE',
   status: 'Open to new opportunities', // set to '' to hide the hero pill
-  summary: `Senior Software Engineer with ${yearsExperience}+ years delivering software that drives business productivity. I work across the full development lifecycle — specialising in .NET, C# and SQL — and lead teams that make enterprise applications faster, more reliable and nicer to use.`,
+  summary: `Senior Software Engineer with ${yearsExperience}+ years delivering software that drives business productivity — specialising in .NET, C# and SQL. Today I work AI-first: Claude Code, ChatGPT and other models are part of how I design, plan and ship every project.`,
   cvUrl: asset('/cv/Sijin-Prakasan-CV.pdf'),
 };
 
@@ -46,10 +46,12 @@ export const about = {
   paragraphs: [
     'I started out in 2014 building mobile apps, admin panels and client websites in Kerala. Since 2015 I’ve been at Inoclad Middle East in Ras Al Khaimah, where I grew from building the company’s in-house CRM to leading the team that evolves it.',
     'Most of my work sits where business processes meet data: turning stakeholder requirements into robust software, integrating systems that were never designed to talk to each other, and tuning applications until they feel fast and dependable.',
+    'These days AI is in my workflow every day. I use Claude Code, ChatGPT and other models to explore designs, break work into plans, write and refactor code, and check the result — with a decade of engineering judgement deciding what ships.',
   ],
   facts: [
     { label: 'Based in', value: 'Ras Al Khaimah, UAE' },
     { label: 'Focus', value: '.NET · C# · SQL Server' },
+    { label: 'Daily AI tools', value: 'Claude Code, ChatGPT' },
     { label: 'Languages', value: 'English, Malayalam, basic German' },
     { label: 'Education', value: 'MCA, Calicut University' },
   ],
@@ -110,10 +112,47 @@ export const experience = [
 ];
 
 /**
+ * "How I work" — the AI-assisted workflow, one card per stage. `icon` is mapped in components/AiWorkflow.jsx.
+ */
+export const aiWorkflow = {
+  tools: ['Claude Code', 'ChatGPT', 'Claude', 'Other LLMs', 'MCP tools'],
+  steps: [
+    {
+      icon: 'design',
+      title: 'Design',
+      text: 'Explore UI directions, data models and architecture options with AI — then pick the one that fits the business.',
+    },
+    {
+      icon: 'plan',
+      title: 'Plan',
+      text: 'Turn requirements into clear, ordered tasks and edge cases before a line of code is written.',
+    },
+    {
+      icon: 'build',
+      title: 'Build',
+      text: 'Pair with Claude Code to write, refactor and document code fast — reviewing every change like a team lead would.',
+    },
+    {
+      icon: 'verify',
+      title: 'Verify & ship',
+      text: 'Test in a real browser, review the diff, and deploy — AI speeds it up, engineering judgement signs it off.',
+    },
+  ],
+};
+
+/**
  * Work highlights shown as a bento grid. `icon` is a lucide-react icon name
  * (mapped in components/Highlights.jsx). `size: 'lg'` spans two columns.
  */
 export const highlights = [
+  {
+    icon: 'sparkles',
+    title: 'This Portfolio — Built AI-First',
+    org: 'Personal · 2026',
+    size: 'full',
+    text: 'Designed, planned, coded and deployed with Claude Code: React, Tailwind CSS and Motion, checked across screen sizes with Playwright, and shipped to GitHub Pages through CI.',
+    tags: ['Claude Code', 'React', 'Tailwind CSS', 'Playwright MCP', 'GitHub Actions'],
+  },
   {
     icon: 'users',
     title: 'Enterprise CRM Platform',
@@ -164,6 +203,12 @@ export const highlights = [
 /** Skill groups. `icon` is mapped in components/Skills.jsx. */
 export const skillGroups = [
   {
+    icon: 'sparkles',
+    label: 'AI-Assisted Development',
+    wide: true,
+    skills: ['Claude Code', 'ChatGPT', 'Prompt & context design', 'AI-assisted design & planning', 'AI pair programming', 'MCP tool integrations'],
+  },
+  {
     icon: 'code',
     label: 'Languages',
     skills: ['C#', 'VB', 'Java', 'SQL', 'JavaScript', 'jQuery', 'HTML', 'CSS', 'ASPX'],
@@ -198,6 +243,7 @@ export const awards = [
 export const navLinks = [
   { id: 'about', label: 'About' },
   { id: 'experience', label: 'Experience' },
+  { id: 'ai', label: 'AI' },
   { id: 'work', label: 'Work' },
   { id: 'skills', label: 'Skills' },
   { id: 'contact', label: 'Contact' },

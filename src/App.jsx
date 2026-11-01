@@ -1,5 +1,6 @@
 import { MotionConfig } from 'motion/react';
 import About from './components/About.jsx';
+import AiWorkflow from './components/AiWorkflow.jsx';
 import Background from './components/Background.jsx';
 import Contact from './components/Contact.jsx';
 import Credentials from './components/Credentials.jsx';
@@ -30,6 +31,7 @@ export default function App() {
         <Hero />
         <About />
         <Experience />
+        <AiWorkflow />
         <Highlights />
         <Skills />
         <Credentials />
