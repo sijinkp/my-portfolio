@@ -1,11 +1,11 @@
-import { Database, Mail, PhoneCall, ServerCog, Smartphone, Sparkles, Users } from 'lucide-react';
+import { Database, Factory, ListTodo, Mail, PhoneCall, ServerCog, Smartphone, Sparkles, Users } from 'lucide-react';
 import { highlights, logoFor } from '../data/content.js';
 import Illustration from './Illustration.jsx';
 import Logo from './Logo.jsx';
 import Reveal from './Reveal.jsx';
 import SectionHeading from './SectionHeading.jsx';
 
-const icons = { sparkles: Sparkles, users: Users, database: Database, mail: Mail, phone: PhoneCall, server: ServerCog, smartphone: Smartphone };
+const icons = { tasks: ListTodo, factory: Factory, sparkles: Sparkles, users: Users, database: Database, mail: Mail, phone: PhoneCall, server: ServerCog, smartphone: Smartphone };
 const spans = { lg: 'md:col-span-2', full: 'md:col-span-3' };
 
 export default function Highlights() {

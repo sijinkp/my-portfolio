@@ -358,3 +358,18 @@ body {
     opacity: 0;
   }
 }
+
+/* Kiosk progress bar filling as an employee updates their task. */
+.kiosk-progress {
+  animation: fill 4s ease-in-out infinite;
+}
+
+@keyframes fill {
+  0% {
+    width: 8%;
+  }
+  80%,
+  100% {
+    width: 92%;
+  }
+}

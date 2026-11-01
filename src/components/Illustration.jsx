@@ -207,7 +207,81 @@ function Portfolio() {
   );
 }
 
-const art = { sparkles: Portfolio, users: Crm, database: DataMerge, mail: MailLink, phone: PhoneCalls, server: ApiEndpoints, smartphone: MobileApp };
+// Kanban board: one card keeps sliding from "To do" into "In progress" while counts tick by.
+function TaskBoard() {
+  const columns = [
+    { name: 'To do', color: 'var(--subtle)', cards: [['Sales', 70], ['HR', 50]] },
+    { name: 'In progress', color: 'var(--accent-2)', cards: [['Tech', 80]] },
+    { name: 'Done', color: '#34d399', cards: [['Finance', 60], ['Admin', 75]] },
+  ];
+  return (
+    <Frame className="grid grid-cols-3 gap-2 p-3">
+      {columns.map((col, c) => (
+        <div key={col.name} className="flex flex-col gap-1.5 rounded-xl bg-[var(--glass)] p-2">
+          <p className="flex items-center gap-1.5 font-mono text-[9px] tracking-wide text-subtle uppercase">
+            <span className="size-1.5 rounded-full" style={{ background: col.color }} />
+            {col.name}
+          </p>
+          {col.cards.map(([dept, w], i) => (
+            <div
+              key={dept}
+              className={`rounded-lg border border-[var(--glass-border)] bg-[var(--glass-strong)] p-1.5 ${c === 1 && i === 0 ? 'slide-in' : ''}`}
+            >
+              <span className="block font-mono text-[9px] text-accent">{dept}</span>
+              <span className="mt-1 block h-1 rounded-full bg-[var(--muted)] opacity-40" style={{ width: `${w}%` }} />
+            </div>
+          ))}
+        </div>
+      ))}
+    </Frame>
+  );
+}
+
+// Production kiosk: priority-sorted order tasks, a design preview and a progress bar that fills as work is updated.
+function ProductionKiosk() {
+  const tasks = [
+    ['PO-1042', 'High', '#f87171'],
+    ['PO-1038', 'Medium', '#fbbf24'],
+    ['PO-1035', 'Low', '#34d399'],
+  ];
+  return (
+    <Frame className="flex gap-3 p-3">
+      <div className="flex flex-1 flex-col gap-1.5">
+        {tasks.map(([po, prio, color], i) => (
+          <div
+            key={po}
+            className={`flex items-center gap-2 rounded-lg border border-[var(--glass-border)] bg-[var(--glass-strong)] px-2 py-1.5 font-mono text-[10px] ${
+              i === 0 ? 'ring-1 ring-[var(--accent)]' : ''
+            }`}
+          >
+            <span className="size-1.5 shrink-0 rounded-full" style={{ background: color }} />
+            <span className="text-fg">{po}</span>
+            <span className="ml-auto" style={{ color }}>
+              {prio}
+            </span>
+          </div>
+        ))}
+        <div className="mt-auto flex items-center gap-2">
+          <span className="rounded-md bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-2 py-1 font-mono text-[9px] font-semibold text-white">START</span>
+          <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-[var(--glass-strong)]">
+            <span className="kiosk-progress block h-full rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400" />
+          </span>
+        </div>
+      </div>
+      <div className="hidden w-[38%] flex-col rounded-lg border border-[var(--glass-border)] bg-[var(--glass)] p-2 min-[420px]:flex">
+        <p className="font-mono text-[9px] text-subtle">DESIGN · PO-1042</p>
+        <svg viewBox="0 0 100 70" className="mt-1 flex-1">
+          <rect x="8" y="10" width="84" height="50" fill="none" stroke="var(--accent-2)" strokeWidth="1.2" />
+          <rect x="18" y="20" width="30" height="30" fill="none" stroke="var(--accent)" strokeWidth="1" className="dash-flow" />
+          <circle cx="70" cy="35" r="11" fill="none" stroke="var(--accent-3)" strokeWidth="1" />
+          <path d="M8 66 H92 M8 63 V69 M92 63 V69" stroke="var(--subtle)" strokeWidth="0.8" />
+        </svg>
+      </div>
+    </Frame>
+  );
+}
+
+const art = { tasks: TaskBoard, factory: ProductionKiosk, sparkles: Portfolio, users: Crm, database: DataMerge, mail: MailLink, phone: PhoneCalls, server: ApiEndpoints, smartphone: MobileApp };
 
 export default function Illustration({ name }) {
   const Art = art[name];

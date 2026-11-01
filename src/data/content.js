@@ -46,7 +46,7 @@ export const about = {
   paragraphs: [
     'I’m a .NET engineer who has spent over a decade inside enterprise systems. At Inoclad Middle East I grew from building the company’s in-house CRM to Technical Lead — leading four developers and owning how our core CRM and ERP applications are designed, modernised and delivered.',
     'My work sits where business processes meet data: turning stakeholder requirements into robust software, integrating systems that were never designed to talk to each other (Informix, SQL Server, Exchange, telephony), and modernising long-lived applications without disrupting the people who rely on them.',
-    'I’ve also worked internationally — building REST APIs for purchase-order processing with Inoso GmbH in Germany, and delivering a mobile app for a major telecom client in Kuwait.',
+    'I’ve also worked internationally. With Inoso GmbH in Germany I built a production-floor kiosk app, a company-wide task management system and purchase-order REST APIs on .NET Core, SQL Server and React Native — and earlier I delivered a mobile app for a major telecom client in Kuwait.',
     'These days AI is in my workflow every day. I use Claude Code, ChatGPT and other models to explore designs, break work into plans, write and refactor code, and check the result — with a decade of engineering judgement deciding what ships.',
   ],
   facts: [
@@ -95,7 +95,9 @@ export const experience = [
         badge: 'International · Inoso GmbH, Germany',
         period: 'Jan 2021 — Oct 2021',
         points: [
-          'Built RESTful APIs for a German purchase-order system, making order creation available to both mobile and web platforms.',
+          'Built a production-floor kiosk app (React Native front end, .NET Core Web APIs, SQL Server): production-order tasks by priority, instant access to technical-department drawings and designs, and live start / progress updates from employees.',
+          'Built a task management system used by every department to assign, prioritise and track work, on the same .NET Core API and React Native stack.',
+          'Built RESTful APIs for purchase-order creation, making it available to both mobile and web platforms.',
           'Improved reliability and performance through targeted code optimisation and proactive bug resolution.',
         ],
       },
@@ -202,6 +204,21 @@ export const highlights = [
     tags: ['Telephony', 'SQL Server', '.NET'],
   },
   {
+    icon: 'factory',
+    title: 'Production Floor Kiosk App',
+    org: 'Inoso GmbH · Germany',
+    size: 'lg',
+    text: 'A React Native kiosk app for the production department: production-order tasks are listed by priority, technical drawings and designs from the technical department are available instantly, and employees start their work and update its progress right in the system.',
+    tags: ['International', 'React Native', '.NET Core Web API', 'SQL Server', 'Kiosk'],
+  },
+  {
+    icon: 'tasks',
+    title: 'Company-wide Task Management',
+    org: 'Inoso GmbH · Germany',
+    text: 'A task management system for every department — work is assigned, prioritised and tracked in one place, on a .NET Core API with a React Native front end.',
+    tags: ['International', '.NET Core Web API', 'React Native', 'SQL Server'],
+  },
+  {
     icon: 'server',
     title: 'Purchase-Order REST APIs',
     org: 'Inoso GmbH · Germany',
@@ -224,7 +241,7 @@ export const skillGroups = [
   {
     icon: 'code',
     label: '.NET & Backend',
-    skills: ['C#', '.NET Framework', '.NET Core', 'ASP.NET Web Forms (ASPX)', 'RESTful APIs', 'WinForms', 'Visual Basic (VB)', 'Java'],
+    skills: ['C#', '.NET Framework', '.NET Core', '.NET Core Web API', 'ASP.NET Web Forms (ASPX)', 'RESTful APIs', 'WinForms', 'Visual Basic (VB)', 'Java'],
   },
   {
     icon: 'database',
@@ -234,7 +251,7 @@ export const skillGroups = [
   {
     icon: 'building',
     label: 'Enterprise Systems',
-    skills: ['CRM development', 'ERP systems', 'Purchase-order processing', 'Application modernisation', 'Microsoft Exchange integration', 'Telephony / CTI integration', 'Workflow automation'],
+    skills: ['CRM development', 'ERP systems', 'Purchase-order processing', 'Application modernisation', 'Task & workflow management', 'Production / shop-floor kiosk apps', 'Microsoft Exchange integration', 'Telephony / CTI integration', 'Workflow automation'],
   },
   {
     icon: 'users',
@@ -243,8 +260,8 @@ export const skillGroups = [
   },
   {
     icon: 'layers',
-    label: 'Frontend & UI',
-    skills: ['ReactJS', 'JavaScript', 'jQuery', 'HTML5', 'CSS3', 'DevExpress', 'UI/UX improvement'],
+    label: 'Frontend & Mobile',
+    skills: ['ReactJS', 'React Native', 'JavaScript', 'jQuery', 'HTML5', 'CSS3', 'DevExpress', 'Kiosk UIs', 'UI/UX improvement'],
   },
   {
     icon: 'wrench',
@@ -312,6 +329,8 @@ export const logoFor = {
   'SQL Server': 'sqlserver',
   MSSQL: 'sqlserver',
   React: 'react',
+  'React Native': 'react',
+  '.NET Core Web API': 'dotnet',
   'Tailwind CSS': 'tailwindcss',
   'Playwright MCP': 'playwright',
   'GitHub Actions': 'githubactions',
