@@ -19,11 +19,11 @@ export const profile = {
   firstName: 'Sijin',
   lastName: 'Prakasan',
   initials: 'SP',
-  title: 'Senior Software Engineer',
-  subtitle: 'Team Lead · .NET, C# & SQL · AI-first',
+  title: 'Senior .NET Engineer & Technical Lead',
+  subtitle: 'C# · .NET · SQL Server · Enterprise CRM & ERP',
   location: 'Ras Al Khaimah, UAE',
   status: 'Open to new opportunities', // set to '' to hide the hero pill
-  summary: `Senior Software Engineer with ${yearsExperience}+ years delivering software that drives business productivity — specialising in .NET, C# and SQL. Today I work AI-first: Claude Code, ChatGPT and other models are part of how I design, plan and ship every project.`,
+  summary: `Senior .NET Engineer and Technical Lead with ${yearsExperience}+ years building and modernising enterprise CRM and ERP applications in C#, .NET and SQL Server. I lead four developers, own the technical direction of core business systems, and have delivered across the UAE, Germany and Kuwait — working AI-first every day.`,
   cvUrl: asset('/cv/Sijin-Prakasan-CV.pdf'),
 };
 
@@ -36,58 +36,74 @@ export const contact = {
 };
 
 export const stats = [
-  { value: `${yearsExperience}+`, label: 'Years building software' },
-  { value: '4', label: 'Engineers led as Team Lead' },
-  { value: '2×', label: 'First prize in debugging' },
-  { value: `${yearsSince(new Date(2015, 10, 1))}`, label: 'Years at Inoclad' },
+  { value: `${yearsExperience}+`, label: 'Years in .NET & enterprise software' },
+  { value: '4', label: 'Developers led as Technical Lead' },
+  { value: '3', label: 'Countries delivered for — UAE, Germany, Kuwait' },
+  { value: '2×', label: 'First prize in debugging competitions' },
 ];
 
 export const about = {
   paragraphs: [
-    'I started out in 2014 building mobile apps, admin panels and client websites in Kerala. Since 2015 I’ve been at Inoclad Middle East in Ras Al Khaimah, where I grew from building the company’s in-house CRM to leading the team that evolves it.',
-    'Most of my work sits where business processes meet data: turning stakeholder requirements into robust software, integrating systems that were never designed to talk to each other, and tuning applications until they feel fast and dependable.',
+    'I’m a .NET engineer who has spent over a decade inside enterprise systems. At Inoclad Middle East I grew from building the company’s in-house CRM to Technical Lead — leading four developers and owning how our core CRM and ERP applications are designed, modernised and delivered.',
+    'My work sits where business processes meet data: turning stakeholder requirements into robust software, integrating systems that were never designed to talk to each other (Informix, SQL Server, Exchange, telephony), and modernising long-lived applications without disrupting the people who rely on them.',
+    'I’ve also worked internationally — building REST APIs for purchase-order processing with Inoso GmbH in Germany, and delivering a mobile app for a major telecom client in Kuwait.',
     'These days AI is in my workflow every day. I use Claude Code, ChatGPT and other models to explore designs, break work into plans, write and refactor code, and check the result — with a decade of engineering judgement deciding what ships.',
   ],
   facts: [
     { label: 'Based in', value: 'Ras Al Khaimah, UAE' },
-    { label: 'Focus', value: '.NET · C# · SQL Server' },
+    { label: 'Role', value: 'Senior .NET Engineer · Technical Lead' },
+    { label: 'Domains', value: 'Enterprise CRM · ERP · Modernisation' },
+    { label: 'International', value: 'UAE · Germany · Kuwait' },
     { label: 'Daily AI tools', value: 'Claude Code, ChatGPT' },
     { label: 'Languages', value: 'English, Malayalam, basic German' },
     { label: 'Education', value: 'MCA, Calicut University' },
   ],
 };
 
-/** Experience — newest first. `roles` lets one employer hold several positions. */
+/**
+ * Experience — newest first. `roles` lets one employer hold several positions.
+ * `focus` = keyword tags, `impact` = measurable facts shown as mini stat tiles,
+ * `badge` on a role marks it out (e.g. international work).
+ */
 export const experience = [
   {
     company: 'Inoclad Middle East FZ LLC',
     location: 'Ras Al Khaimah, UAE',
     period: 'Nov 2015 — Present',
     current: true,
+    focus: ['Enterprise CRM', 'ERP', 'Application modernisation', 'Technical leadership', 'System integration'],
+    impact: [
+      { value: '4', label: 'developers led' },
+      { value: `${yearsSince(new Date(2015, 10, 1))}+ yrs`, label: 'owning the CRM platform' },
+      { value: '3 → 1', label: 'contact sources unified' },
+      { value: '2', label: 'channels automated — email & phone' },
+    ],
     roles: [
       {
-        title: 'Senior Software Engineer, Team Lead',
+        title: 'Senior Software Engineer — Technical Lead',
         period: 'Jan 2022 — Present',
         points: [
-          'Lead a team of four engineers upgrading and enhancing core company software — significantly improving UI/UX, performance and stability.',
-          'Integrated contact data from Informix, MS SQL Server and Exchange to unify customer information in a single, efficient platform.',
-          'Built an automation module that links incoming emails to contacts by sender address, improving data accessibility.',
-          'Integrated the phone system with the database to look up callers automatically and show call logs inside contact details.',
+          'Lead and mentor a team of four developers, owning technical direction, task planning and delivery for the company’s core CRM and ERP software.',
+          'Drive application modernisation of long-running .NET systems — significantly improving UI/UX, performance and stability without disrupting daily users.',
+          'Unified contact data from three sources — Informix, MS SQL Server and Exchange — into a single platform, giving every team one view of the customer.',
+          'Delivered an email-automation module that links incoming email to contacts by sender address, removing manual filing.',
+          'Integrated the phone system with the database: incoming calls trigger an automatic contact lookup and call logs appear inside the contact record.',
         ],
       },
       {
-        title: 'Senior Software Engineer — Inoso GmbH, Germany',
+        title: 'Senior Software Engineer',
+        badge: 'International · Inoso GmbH, Germany',
         period: 'Jan 2021 — Oct 2021',
         points: [
-          'Developed RESTful APIs for purchase-order creation, enabling seamless integration with mobile and web platforms.',
-          'Strengthened reliability and performance through code optimisation and proactive bug resolution.',
+          'Built RESTful APIs for a German purchase-order system, making order creation available to both mobile and web platforms.',
+          'Improved reliability and performance through targeted code optimisation and proactive bug resolution.',
         ],
       },
       {
         title: 'Software Engineer',
-        period: '2015 — 2020',
+        period: 'Nov 2015 — Dec 2020',
         points: [
-          'Developed the in-house CRM application, translating stakeholder requirements into robust, scalable solutions.',
+          'Developed the in-house enterprise CRM application from stakeholder requirements to a robust, scalable solution.',
           'Worked with cross-functional teams to refine features, improve customer interactions and streamline internal workflows.',
         ],
       },
@@ -97,12 +113,14 @@ export const experience = [
     company: 'Appcoder Solutions Pvt. Ltd.',
     location: 'Kerala, India',
     period: 'Nov 2014 — Oct 2015',
+    focus: ['Mobile development', 'Admin panels', 'Web development'],
     roles: [
       {
         title: 'Software Developer',
+        badge: 'International client · Kuwait',
         period: 'Nov 2014 — Oct 2015',
         points: [
-          'Built a mobile application for a major telecommunications client in Kuwait, from initial design to final deployment.',
+          'Delivered a mobile application end to end — from initial design to final deployment — for a major telecommunications client in Kuwait.',
           'Created an admin panel for user management and report generation.',
           'Delivered multiple client websites tailored to different industries.',
         ],
@@ -155,10 +173,10 @@ export const highlights = [
   },
   {
     icon: 'users',
-    title: 'Enterprise CRM Platform',
+    title: 'Enterprise CRM & ERP Modernisation',
     org: 'Inoclad',
     size: 'lg',
-    text: 'Built the company’s in-house CRM from stakeholder requirements, then led the four-person team that modernised its UI/UX, performance and stability.',
+    text: 'Built the company’s in-house CRM from stakeholder requirements, then — as Technical Lead of four developers — drove the modernisation of its core CRM and ERP software: better UI/UX, performance and stability.',
     tags: ['C#', '.NET', 'WinForms', 'DevExpress', 'SQL Server'],
   },
   {
@@ -188,7 +206,7 @@ export const highlights = [
     title: 'Purchase-Order REST APIs',
     org: 'Inoso GmbH · Germany',
     text: 'RESTful APIs that made purchase-order creation flexible and available to both mobile and web clients.',
-    tags: ['REST', '.NET', 'API design'],
+    tags: ['International', 'REST', '.NET', 'API design'],
   },
   {
     icon: 'smartphone',
@@ -201,32 +219,43 @@ export const highlights = [
 ];
 
 /** Skill groups. `icon` is mapped in components/Skills.jsx. */
+// Grouped for recruiters and ATS keyword matching: full product names, common acronyms in brackets.
 export const skillGroups = [
+  {
+    icon: 'code',
+    label: '.NET & Backend',
+    skills: ['C#', '.NET Framework', '.NET Core', 'ASP.NET Web Forms (ASPX)', 'RESTful APIs', 'WinForms', 'Visual Basic (VB)', 'Java'],
+  },
+  {
+    icon: 'database',
+    label: 'Databases & Data',
+    skills: ['Microsoft SQL Server (MSSQL)', 'T-SQL', 'Stored procedures', 'Query optimisation', 'MySQL', 'IBM Informix', 'Data integration'],
+  },
+  {
+    icon: 'building',
+    label: 'Enterprise Systems',
+    skills: ['CRM development', 'ERP systems', 'Purchase-order processing', 'Application modernisation', 'Microsoft Exchange integration', 'Telephony / CTI integration', 'Workflow automation'],
+  },
+  {
+    icon: 'users',
+    label: 'Leadership & Delivery',
+    skills: ['Technical leadership', 'Team lead (4 developers)', 'Full software development lifecycle (SDLC)', 'Requirements analysis', 'Stakeholder collaboration', 'Performance optimisation', 'Debugging & troubleshooting'],
+  },
+  {
+    icon: 'layers',
+    label: 'Frontend & UI',
+    skills: ['ReactJS', 'JavaScript', 'jQuery', 'HTML5', 'CSS3', 'DevExpress', 'UI/UX improvement'],
+  },
+  {
+    icon: 'wrench',
+    label: 'Tools & Platforms',
+    skills: ['Visual Studio', 'Git', 'Fork', 'Microsoft Teams', 'Microsoft Office', 'Windows', 'macOS', 'Linux'],
+  },
   {
     icon: 'sparkles',
     label: 'AI-Assisted Development',
     wide: true,
     skills: ['Claude Code', 'ChatGPT', 'Prompt & context design', 'AI-assisted design & planning', 'AI pair programming', 'MCP tool integrations'],
-  },
-  {
-    icon: 'code',
-    label: 'Languages',
-    skills: ['C#', 'VB', 'Java', 'SQL', 'JavaScript', 'jQuery', 'HTML', 'CSS', 'ASPX'],
-  },
-  {
-    icon: 'layers',
-    label: 'Frameworks & Tech',
-    skills: ['.NET Framework', '.NET Core', 'WinForms', 'REST APIs', 'ReactJS', 'DevExpress'],
-  },
-  {
-    icon: 'database',
-    label: 'Databases',
-    skills: ['MS SQL Server', 'MySQL', 'Informix'],
-  },
-  {
-    icon: 'wrench',
-    label: 'Tools & Platforms',
-    skills: ['Visual Studio', 'Git (Fork)', 'Microsoft Teams', 'Windows', 'macOS', 'Linux'],
   },
 ];
 
@@ -247,4 +276,69 @@ export const navLinks = [
   { id: 'work', label: 'Work' },
   { id: 'skills', label: 'Skills' },
   { id: 'contact', label: 'Contact' },
+];
+
+/**
+ * Logos (files in src/assets/logos). `logoFor` maps a skill / tool name to its logo;
+ * names without an entry simply show without one.
+ */
+export const logoFor = {
+  'C#': 'csharp',
+  '.NET Framework': 'dotnet',
+  '.NET Core': 'dotnet',
+  ReactJS: 'react',
+  JavaScript: 'javascript',
+  jQuery: 'jquery',
+  Java: 'java',
+  HTML: 'html5',
+  CSS: 'css3',
+  DevExpress: 'devexpress',
+  'MS SQL Server': 'sqlserver',
+  MySQL: 'mysql',
+  'Visual Studio': 'visualstudio',
+  'Git (Fork)': 'git',
+  Windows: 'windows11',
+  macOS: 'apple',
+  Linux: 'linux',
+  'Claude Code': 'claude',
+  Claude: 'claude',
+  ChatGPT: 'openai',
+  'Microsoft SQL Server (MSSQL)': 'sqlserver',
+  HTML5: 'html5',
+  CSS3: 'css3',
+  Git: 'git',
+  // Tags used on the work cards
+  '.NET': 'dotnet',
+  'SQL Server': 'sqlserver',
+  MSSQL: 'sqlserver',
+  React: 'react',
+  'Tailwind CSS': 'tailwindcss',
+  'Playwright MCP': 'playwright',
+  'GitHub Actions': 'githubactions',
+};
+
+/** The scrolling logo strip under the hero — two rows that move in opposite directions. */
+export const techStrip = [
+  [
+    { logo: 'csharp', label: 'C#' },
+    { logo: 'dotnet', label: '.NET' },
+    { logo: 'sqlserver', label: 'SQL Server' },
+    { logo: 'devexpress', label: 'DevExpress' },
+    { logo: 'visualstudio', label: 'Visual Studio' },
+    { logo: 'mysql', label: 'MySQL' },
+    { logo: 'java', label: 'Java' },
+    { logo: 'git', label: 'Git' },
+    { logo: 'windows11', label: 'Windows' },
+  ],
+  [
+    { logo: 'claude', label: 'Claude Code' },
+    { logo: 'openai', label: 'ChatGPT' },
+    { logo: 'react', label: 'React' },
+    { logo: 'javascript', label: 'JavaScript' },
+    { logo: 'tailwindcss', label: 'Tailwind CSS' },
+    { logo: 'playwright', label: 'Playwright' },
+    { logo: 'githubactions', label: 'GitHub Actions' },
+    { logo: 'html5', label: 'HTML5' },
+    { logo: 'css3', label: 'CSS3' },
+  ],
 ];

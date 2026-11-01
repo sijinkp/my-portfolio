@@ -10,6 +10,7 @@ import Hero from './components/Hero.jsx';
 import Highlights from './components/Highlights.jsx';
 import Nav from './components/Nav.jsx';
 import Skills from './components/Skills.jsx';
+import TechStrip from './components/TechStrip.jsx';
 import { useSpotlight } from './hooks/useSpotlight.js';
 import { useTheme } from './hooks/useTheme.js';
 
@@ -29,6 +30,7 @@ export default function App() {
       <Nav theme={theme} onToggleTheme={toggle} />
       <main id="main" className="overflow-x-clip">
         <Hero />
+        <TechStrip />
         <About />
         <Experience />
         <AiWorkflow />

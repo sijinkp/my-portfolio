@@ -1,14 +1,15 @@
-import { Code2, Database, Layers, Sparkles, Wrench } from 'lucide-react';
-import { skillGroups } from '../data/content.js';
+import { Building2, Code2, Database, Layers, Sparkles, Users, Wrench } from 'lucide-react';
+import { logoFor, skillGroups } from '../data/content.js';
+import Logo from './Logo.jsx';
 import Reveal from './Reveal.jsx';
 import SectionHeading from './SectionHeading.jsx';
 
-const icons = { sparkles: Sparkles, code: Code2, layers: Layers, database: Database, wrench: Wrench };
+const icons = { sparkles: Sparkles, code: Code2, layers: Layers, database: Database, wrench: Wrench, building: Building2, users: Users };
 
 export default function Skills() {
   return (
     <section id="skills" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
-      <SectionHeading eyebrow="Skills" title="The toolkit." intro="Deep in the Microsoft stack, comfortable across the rest — and AI-assisted throughout." />
+      <SectionHeading eyebrow="Skills" title="The toolkit." intro="Deep in the Microsoft .NET stack and enterprise systems — with the leadership to deliver them, and AI-assisted throughout." />
 
       <div className="grid gap-5 sm:grid-cols-2">
         {skillGroups.map((group, i) => {
@@ -23,8 +24,9 @@ export default function Skills() {
                 {group.skills.map((skill) => (
                   <li
                     key={skill}
-                    className="rounded-xl border border-[var(--glass-border)] bg-[var(--glass)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--accent)] hover:text-accent"
+                    className="flex items-center gap-2 rounded-xl border border-[var(--glass-border)] bg-[var(--glass)] px-3.5 py-2 text-sm font-medium transition duration-300 hover:-translate-y-0.5 hover:border-[var(--accent)] hover:text-accent"
                   >
+                    <Logo name={logoFor[skill]} className="size-[18px]" />
                     {skill}
                   </li>
                 ))}

@@ -31,3 +31,6 @@ Years of experience are calculated from the career start date, so they stay curr
 - **Hero code window:** the C# snippet is the `code` array in `src/components/Hero.jsx`.
 - **Colours, glass and themes:** tokens at the top of `src/styles.css` (dark and light).
 - **SEO / page title:** `index.html`.
+- **Logos:** SVGs in `src/assets/logos/` (sources and licences in `LICENSES.md`). Map a skill or tag name to a
+  logo in `logoFor` in `content.js`; the scrolling strip under the hero is `techStrip`.
+- **Work-card illustrations:** animated SVG/CSS scenes in `src/components/Illustration.jsx`, keyed by the card's `icon`.

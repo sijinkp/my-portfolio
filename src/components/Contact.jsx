@@ -25,7 +25,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
-      <Reveal className="glass relative overflow-hidden rounded-[2.5rem] p-7 sm:p-12 md:p-16">
+      <Reveal className="glass glow-border relative overflow-hidden rounded-[2.5rem] p-7 sm:p-12 md:p-16">
         <div aria-hidden="true" className="absolute -top-32 -right-24 size-80 rounded-full bg-fuchsia-500/30 blur-3xl" />
         <div aria-hidden="true" className="absolute -bottom-32 -left-24 size-80 rounded-full bg-indigo-500/30 blur-3xl" />
 

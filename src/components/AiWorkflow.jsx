@@ -1,5 +1,6 @@
 import { CheckCircle2, Code2, ListChecks, Palette, Sparkles } from 'lucide-react';
-import { aiWorkflow } from '../data/content.js';
+import { aiWorkflow, logoFor } from '../data/content.js';
+import Logo from './Logo.jsx';
 import Reveal from './Reveal.jsx';
 import SectionHeading from './SectionHeading.jsx';
 
@@ -43,7 +44,11 @@ export default function AiWorkflow() {
         </p>
         <ul className="flex flex-wrap gap-2">
           {aiWorkflow.tools.map((tool) => (
-            <li key={tool} className="rounded-full border border-[var(--glass-border)] bg-[var(--glass)] px-3.5 py-1.5 text-sm font-medium">
+            <li
+              key={tool}
+              className="flex items-center gap-2 rounded-full border border-[var(--glass-border)] bg-[var(--glass)] px-3.5 py-1.5 text-sm font-medium"
+            >
+              <Logo name={logoFor[tool]} className="size-4" />
               {tool}
             </li>
           ))}

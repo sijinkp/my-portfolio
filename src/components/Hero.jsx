@@ -1,6 +1,7 @@
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'motion/react';
 import { ArrowRight, Download, Linkedin, Mail, MapPin } from 'lucide-react';
 import { contact, profile, stats, yearsExperience } from '../data/content.js';
+import Logo from './Logo.jsx';
 
 const ease = [0.22, 1, 0.36, 1];
 const fadeUp = (delay) => ({
@@ -99,7 +100,7 @@ const code = [
   [[k, '  public string '], [m, 'Location'], [p, ' =>']],
   [[s, `    "${profile.location}"`], [p, ';']],
   [[k, '  public int '], [m, 'Years'], [p, ' => '], [n, String(yearsExperience)], [p, ';']],
-  [[k, '  public string '], [m, 'Role'], [p, ' => '], [s, '"Team Lead"'], [p, ';']],
+  [[k, '  public string '], [m, 'Role'], [p, ' => '], [s, '"Technical Lead"'], [p, ';']],
   [[k, '  public string'], [p, '[] '], [m, 'Stack'], [p, ' =>']],
   [[p, '    ['], [s, '".NET"'], [p, ', '], [s, '"C#"'], [p, ', '], [s, '"SQL"'], [p, ', '], [s, '"React"'], [p, '];']],
   [[k, '  public string'], [p, '[] '], [m, 'AiTools'], [p, ' =>']],
@@ -113,7 +114,7 @@ const code = [
 function CodeWindow() {
   return (
     <figure
-      className="glass overflow-hidden rounded-[2rem]"
+      className="glass glow-border overflow-hidden rounded-[2rem]"
       style={{ background: 'linear-gradient(145deg, rgb(20 24 56 / 0.85), rgb(9 12 30 / 0.8))' }}
       aria-label={`${profile.name}, written as a C# class`}
     >
@@ -137,6 +138,7 @@ function CodeWindow() {
                   </span>
                 ))}
                 {line.length === 0 && ' '}
+                {i === code.length - 1 && <span aria-hidden="true" className="caret ml-1 inline-block h-[1.1em] w-[0.55em] translate-y-[0.2em] bg-[#a5b4fc]" />}
               </span>
             </span>
           ))}
@@ -187,25 +189,36 @@ function HeroVisual() {
           </span>
         </FloatingChip>
 
-        <FloatingChip className="right-2 -bottom-6 sm:-right-8" delay={0.85} depth={50}>
+        <FloatingChip className="right-2 -bottom-6 sm:-right-8" delay={0.85} depth={50} floatDelay={-2}>
           <span className="size-2 rounded-full bg-fuchsia-400" />
-          <span className="text-sm font-medium">Team Lead · AI-first engineer</span>
+          <span className="text-sm font-medium">Technical Lead · .NET · AI-first</span>
+        </FloatingChip>
+
+        <FloatingChip className="-bottom-7 -left-8 hidden lg:block" delay={1} depth={70} floatDelay={-4}>
+          {['claude', 'openai', 'dotnet', 'sqlserver'].map((l) => (
+            <span key={l} className="grid size-9 place-items-center rounded-xl bg-[var(--glass-strong)] text-fg">
+              <Logo name={l} className="size-5" />
+            </span>
+          ))}
         </FloatingChip>
       </motion.div>
     </motion.div>
   );
 }
 
-function FloatingChip({ children, className, delay, depth }) {
+// Outer element: entrance + 3D depth (Motion owns its transform). Inner element: the CSS bobbing loop.
+function FloatingChip({ children, className, delay, depth, floatDelay = 0 }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay, ease }}
       style={{ z: depth }}
-      className={`glass absolute flex items-center gap-2.5 rounded-2xl px-4 py-3 ${className}`}
+      className={`absolute ${className}`}
     >
-      {children}
+      <div className="glass float flex items-center gap-2.5 rounded-2xl px-4 py-3" style={{ animationDelay: `${floatDelay}s` }}>
+        {children}
+      </div>
     </motion.div>
   );
 }
