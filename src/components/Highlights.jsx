@@ -1,11 +1,22 @@
-import { Database, Factory, ListTodo, Mail, PhoneCall, ServerCog, Smartphone, Sparkles, Users } from 'lucide-react';
+import { AppWindow, Check, ChartLine, Construction, Database, Factory, ListTodo, ServerCog, Smartphone, Sparkles, Users } from 'lucide-react';
 import { highlights, logoFor } from '../data/content.js';
 import Illustration from './Illustration.jsx';
 import Logo from './Logo.jsx';
 import Reveal from './Reveal.jsx';
 import SectionHeading from './SectionHeading.jsx';
 
-const icons = { tasks: ListTodo, factory: Factory, sparkles: Sparkles, users: Users, database: Database, mail: Mail, phone: PhoneCall, server: ServerCog, smartphone: Smartphone };
+const icons = {
+  sparkles: Sparkles,
+  users: Users,
+  window: AppWindow,
+  chart: ChartLine,
+  database: Database,
+  factory: Factory,
+  tasks: ListTodo,
+  site: Construction,
+  server: ServerCog,
+  smartphone: Smartphone,
+};
 const spans = { lg: 'md:col-span-2', full: 'md:col-span-3' };
 
 export default function Highlights() {
@@ -14,7 +25,7 @@ export default function Highlights() {
       <SectionHeading
         eyebrow="Selected work"
         title="Things I’ve built."
-        intro="Enterprise platforms and integrations that quietly save people hours every week — and, lately, projects built AI-first."
+        intro="CRM, ERP and production systems used every day — from the office to the production floor and project sites — plus projects built AI-first."
       />
 
       <ul className="grid gap-5 md:grid-cols-3">
@@ -42,6 +53,16 @@ export default function Highlights() {
                 </div>
                 <h3 className="mt-5 font-display text-xl font-semibold">{item.title}</h3>
                 <p className="mt-2 leading-relaxed text-muted">{item.text}</p>
+                {item.modules && (
+                  <ul className="mt-5 grid gap-x-5 gap-y-2 sm:grid-cols-2" aria-label="Modules">
+                    {item.modules.map((m) => (
+                      <li key={m} className="flex items-start gap-2 text-sm">
+                        <Check size={16} className="mt-0.5 shrink-0 text-accent-2" />
+                        {m}
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 <ul className="mt-auto flex flex-wrap gap-2 pt-6">
                   {item.tags.map((tag) => (
                     <li

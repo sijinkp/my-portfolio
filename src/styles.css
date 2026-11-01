@@ -373,3 +373,36 @@ body {
     width: 92%;
   }
 }
+
+/* Window configurator: frame colour cycles through the swatches. */
+.window-frame {
+  stroke: #6366f1;
+  animation: frame-colour 8s steps(1) infinite;
+}
+
+@keyframes frame-colour {
+  0% {
+    stroke: #6366f1;
+  }
+  25% {
+    stroke: #e879f9;
+  }
+  50% {
+    stroke: #22d3ee;
+  }
+  75% {
+    stroke: #94a3b8;
+  }
+}
+
+/* Progress bars that grow from the left. */
+.grow-x {
+  transform-origin: left;
+  animation: grow-x 3s ease-in-out infinite alternate;
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0.2);
+  }
+}

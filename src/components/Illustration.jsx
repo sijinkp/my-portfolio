@@ -78,52 +78,6 @@ function DataMerge() {
   );
 }
 
-function MailLink() {
-  return (
-    <Frame>
-      <svg viewBox="0 0 320 144" className="size-full">
-        <rect x="28" y="44" width="80" height="56" rx="8" fill={panel} stroke={stroke} />
-        <path d="M30 48 L68 76 L106 48" fill="none" stroke="var(--accent)" strokeWidth="2" />
-        <g className="travel">
-          <circle cx="132" cy="72" r="5" fill="var(--accent-2)" />
-        </g>
-        <path d="M120 72 H 212" stroke={stroke} strokeWidth="1.5" strokeDasharray="3 5" />
-        <rect x="216" y="34" width="84" height="76" rx="10" fill={panel} stroke="var(--accent)" />
-        <circle cx="240" cy="58" r="10" fill="var(--accent-3)" opacity="0.8" />
-        <rect x="256" y="52" width="34" height="5" rx="2.5" fill="var(--muted)" />
-        <rect x="256" y="61" width="24" height="4" rx="2" fill={stroke} />
-        {[80, 92].map((y, i) => (
-          <rect key={y} className="slide-in" style={{ animationDelay: `${i * 0.4}s` }} x="228" y={y} width={60 - i * 14} height="6" rx="3" fill="var(--accent-2)" opacity="0.7" />
-        ))}
-      </svg>
-    </Frame>
-  );
-}
-
-function PhoneCalls() {
-  return (
-    <Frame>
-      <svg viewBox="0 0 320 144" className="size-full">
-        <circle cx="72" cy="72" r="22" fill="var(--accent)" opacity="0.35" className="ping" />
-        <circle cx="72" cy="72" r="22" fill="var(--accent)" opacity="0.35" className="ping" style={{ animationDelay: '1.1s' }} />
-        <circle cx="72" cy="72" r="22" fill="var(--accent-strong)" />
-        <path
-          d="M64 62c0-1 1-2 2-2h3l2 5-2 2c1 3 3 5 6 6l2-2 5 2v3c0 1-1 2-2 2-9 0-16-7-16-16z"
-          fill="#fff"
-        />
-        {[0, 1, 2, 3].map((i) => (
-          <g key={i} className="slide-in" style={{ animationDelay: `${i * 0.35}s` }}>
-            <rect x="130" y={22 + i * 26} width="170" height="20" rx="6" fill={panel} stroke={stroke} />
-            <circle cx="142" cy={32 + i * 26} r="4" fill={i === 0 ? '#34d399' : 'var(--accent-2)'} />
-            <rect x="152" y={29 + i * 26} width={80 - i * 8} height="5" rx="2.5" fill="var(--muted)" opacity="0.7" />
-            <rect x="262" y={29 + i * 26} width="28" height="5" rx="2.5" fill={stroke} />
-          </g>
-        ))}
-      </svg>
-    </Frame>
-  );
-}
-
 function ApiEndpoints() {
   const rows = [
     ['POST', '/orders', '#34d399'],
@@ -237,7 +191,7 @@ function TaskBoard() {
   );
 }
 
-// Production kiosk: priority-sorted order tasks, a design preview and a progress bar that fills as work is updated.
+// Production app: priority-sorted order tasks, a vector drawing of the PO, and a punch-in timer with live progress.
 function ProductionKiosk() {
   const tasks = [
     ['PO-1042', 'High', '#f87171'],
@@ -262,14 +216,15 @@ function ProductionKiosk() {
           </div>
         ))}
         <div className="mt-auto flex items-center gap-2">
-          <span className="rounded-md bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-2 py-1 font-mono text-[9px] font-semibold text-white">START</span>
+          <span className="rounded-md bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-2 py-1 font-mono text-[9px] font-semibold text-white">PUNCH IN</span>
+          <span className="font-mono text-[10px] text-accent-2">01:24:07</span>
           <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-[var(--glass-strong)]">
             <span className="kiosk-progress block h-full rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400" />
           </span>
         </div>
       </div>
       <div className="hidden w-[38%] flex-col rounded-lg border border-[var(--glass-border)] bg-[var(--glass)] p-2 min-[420px]:flex">
-        <p className="font-mono text-[9px] text-subtle">DESIGN · PO-1042</p>
+        <p className="font-mono text-[9px] text-subtle">VECTOR · PO-1042</p>
         <svg viewBox="0 0 100 70" className="mt-1 flex-1">
           <rect x="8" y="10" width="84" height="50" fill="none" stroke="var(--accent-2)" strokeWidth="1.2" />
           <rect x="18" y="20" width="30" height="30" fill="none" stroke="var(--accent)" strokeWidth="1" className="dash-flow" />
@@ -281,7 +236,122 @@ function ProductionKiosk() {
   );
 }
 
-const art = { tasks: TaskBoard, factory: ProductionKiosk, sparkles: Portfolio, users: Crm, database: DataMerge, mail: MailLink, phone: PhoneCalls, server: ApiEndpoints, smartphone: MobileApp };
+
+// Window configurator: the window's frame colour and glazing pattern cycle while an offer total appears.
+function WindowConfigurator() {
+  const swatches = ['#6366f1', '#e879f9', '#22d3ee', '#f8fafc', '#334155'];
+  return (
+    <Frame className="flex items-center gap-4 p-3">
+      <svg viewBox="0 0 120 120" className="h-full shrink-0">
+        <rect x="14" y="8" width="92" height="104" rx="4" fill="none" strokeWidth="7" className="window-frame" />
+        <line x1="60" y1="12" x2="60" y2="108" strokeWidth="4" className="window-frame" />
+        <line x1="18" y1="60" x2="102" y2="60" strokeWidth="4" className="window-frame" />
+        {[
+          [20, 14],
+          [64, 14],
+          [20, 64],
+          [64, 64],
+        ].map(([x, y], i) => (
+          <rect key={i} x={x} y={y} width="36" height="42" fill="var(--accent-2)" opacity={0.12 + (i % 2) * 0.08} />
+        ))}
+        <path d="M24 50 L48 20 M70 50 L94 20" stroke="#fff" strokeOpacity="0.35" strokeWidth="2" />
+        <path d="M2 8 V112 M0 8 H4 M0 112 H4" stroke="var(--subtle)" strokeWidth="1" />
+        
+      </svg>
+      <div className="flex min-w-0 flex-1 flex-col gap-1.5 font-mono text-[10px]">
+        <div className="flex gap-1.5">
+          {swatches.map((s, i) => (
+            <span key={s} className={`size-4 rounded-full border border-[var(--glass-border)] ${i === 0 ? 'ring-2 ring-[var(--accent)]' : ''}`} style={{ background: s }} />
+          ))}
+        </div>
+        {['Size', 'Style', 'Material'].map((row, i) => (
+          <span key={row} className="flex items-center gap-2 rounded-md bg-[var(--glass-strong)] px-2 py-0.5 text-muted">
+            {row}
+            <span className="ml-auto h-1.5 rounded-full bg-[var(--accent)] opacity-60" style={{ width: `${30 + i * 10}%` }} />
+          </span>
+        ))}
+        <span className="slide-in mt-auto rounded-md bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-2 py-1 font-semibold text-white">
+          Offer generated ✓
+        </span>
+      </div>
+    </Frame>
+  );
+}
+
+// Sales analyser: past sales as bars, with a dashed forecast line projecting the budget.
+function SalesChart() {
+  const past = [38, 52, 46, 60, 55, 70];
+  return (
+    <Frame>
+      <svg viewBox="0 0 320 144" className="size-full">
+        {[36, 72, 108].map((y) => (
+          <line key={y} x1="16" x2="304" y1={y} y2={y} stroke={stroke} strokeWidth="0.8" />
+        ))}
+        {past.map((h, i) => (
+          <rect key={i} className="grow-bar" style={{ animationDelay: `${i * 0.15}s` }} x={24 + i * 34} y={128 - h} width="20" height={h} rx="3" fill="var(--accent)" opacity="0.7" />
+        ))}
+        <path d="M34 92 L68 78 L102 84 L136 70 L170 74 L204 58" fill="none" stroke="var(--accent-2)" strokeWidth="2" />
+        <path d="M204 58 L238 48 L272 40 L300 32" fill="none" stroke="var(--accent-3)" strokeWidth="2" className="dash-flow" />
+        <circle cx="300" cy="32" r="4" fill="var(--accent-3)" />
+        <circle cx="300" cy="32" r="4" fill="var(--accent-3)" className="ping" />
+        <text x="296" y="20" textAnchor="end" fontSize="10" fill="var(--fg)" fontFamily="var(--font-mono)">
+          budget forecast
+        </text>
+      </svg>
+    </Frame>
+  );
+}
+
+// Site progress: sections of a site with progress bars, a photo/comment and a reported problem.
+function SiteProgress() {
+  const sections = [
+    ['Section A', 90],
+    ['Section B', 60],
+    ['Section C', 35],
+  ];
+  return (
+    <Frame className="flex gap-3 p-3">
+      <div className="flex flex-1 flex-col justify-between gap-2">
+        {sections.map(([name, pct], i) => (
+          <div key={name} className="rounded-lg border border-[var(--glass-border)] bg-[var(--glass-strong)] px-2.5 py-1.5">
+            <div className="flex justify-between font-mono text-[10px]">
+              <span className="text-fg">{name}</span>
+              <span className="text-accent-2">{pct}%</span>
+            </div>
+            <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-[var(--glass)]">
+              <div className="grow-x h-full rounded-full bg-gradient-to-r from-indigo-500 to-cyan-400" style={{ width: `${pct}%`, animationDelay: `${i * 0.3}s` }} />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="hidden w-[34%] flex-col gap-2 min-[420px]:flex">
+        <div className="relative flex-1 overflow-hidden rounded-lg bg-gradient-to-br from-cyan-500/40 to-indigo-600/50">
+          <svg viewBox="0 0 60 40" className="absolute inset-0 size-full" preserveAspectRatio="xMidYMax slice">
+            <path d="M0 40 L18 18 L30 30 L42 12 L60 40 Z" fill="#fff" opacity="0.25" />
+            <circle cx="46" cy="9" r="4" fill="#fde68a" opacity="0.8" />
+          </svg>
+          <span className="absolute bottom-1 left-1.5 font-mono text-[8px] text-white">photo · comment</span>
+        </div>
+        <span className="pulse-dot flex items-center gap-1.5 rounded-md bg-red-500/15 px-2 py-1 font-mono text-[9px] text-red-400">
+          ⚠ Problem reported
+        </span>
+      </div>
+    </Frame>
+  );
+}
+
+const art = {
+  sparkles: Portfolio,
+  users: Crm,
+  window: WindowConfigurator,
+  chart: SalesChart,
+  database: DataMerge,
+  factory: ProductionKiosk,
+  tasks: TaskBoard,
+  site: SiteProgress,
+  server: ApiEndpoints,
+  smartphone: MobileApp,
+};
 
 export default function Illustration({ name }) {
   const Art = art[name];
